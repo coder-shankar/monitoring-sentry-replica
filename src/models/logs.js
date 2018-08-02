@@ -1,5 +1,5 @@
 import bookshelf from '../db';
-import ProjectInstance from './project_instance';
+import ProjectInstance from './project_instances';
 const TABLE_NAME = 'logs';
 
 /**

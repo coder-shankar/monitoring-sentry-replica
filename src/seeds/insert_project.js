@@ -1,30 +1,25 @@
 /**
-
  * @param  {object} knex
  * @param  {object} Promise
  * @return {Promise}
  */
-
 export function seed(knex, Promise) {
   // Deletes all existing entries
-
-  return knex('admins')
+  return knex('projects')
     .del()
     .then(() => {
       // Inserts seed entries
-
       return Promise.all([
-        knex('admins').insert([
+        knex('projects').insert([
           {
-            email: 'Devsanjay@gmail.com',
-            updated_at: new Date(),
-            password: 'xxx'
+            project_name: 'Sentry',
+            admin_id: 1,
+            updated_at: new Date()
           },
-
           {
-            email: 'dev2@gmail.com',
-            updated_at: new Date(),
-            password: 'abc'
+            project_name: 'MaxPanel',
+            admin_id: 2,
+            updated_at: new Date()
           }
         ])
       ]);
