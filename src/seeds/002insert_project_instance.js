@@ -22,18 +22,6 @@ export function seed(knex, Promise) {
             instance_key: 'a2d3asddass4d',
             updated_at: new Date(),
             project_id: 1
-          },
-          {
-            instance_name: 'Dev',
-            instance_key: 'asfaadasdd34d',
-            updated_at: new Date(),
-            project_id: 2
-          },
-          {
-            instance_name: 'QA',
-            instance_key: 'asdasdd34d',
-            updated_at: new Date(),
-            project_id: 2
           }
         ])
       ]);
