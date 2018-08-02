@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import swaggerSpec from './utils/swagger';
-import usersController from './controllers/users';
+import adminController from './controllers/admins';
 
 /**
  * Contains all API routes for the application.
@@ -41,7 +41,7 @@ router.get('/swagger.json', (req, res) => {
  *       200:
  *         description: Application and API version
  *         schema:
- *           title: Users
+ *           title: Admins
  *           type: object
  *           $ref: '#/definitions/App'
  */
@@ -52,6 +52,6 @@ router.get('/', (req, res) => {
   });
 });
 
-router.use('/users', usersController);
+router.use('/admin', adminController);
 
 export default router;
