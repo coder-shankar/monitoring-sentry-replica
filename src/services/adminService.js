@@ -1,5 +1,6 @@
 import Boom from 'boom';
-import Admin from '../models/admin';
+import Admin from '../models/admins';
+import * as crypt from '../utils/crypt';
 
 /**
  * Get all admin.
@@ -33,7 +34,12 @@ export function getAdmin(id) {
  * @return {Promise}
  */
 export function createAdmin(admin) {
-  return new Admin({ name: admin.name }).save();
+  let password = crypt.encrypt(admin.password);
+
+  return new Admin({
+    email: admin.email,
+    password: password
+  }).save();
 }
 
 /**

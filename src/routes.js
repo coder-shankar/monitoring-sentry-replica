@@ -1,50 +1,15 @@
 import { Router } from 'express';
-import swaggerSpec from './utils/swagger';
-import adminController from './controllers/admins';
+
+import adminController from './controllers/adminsController';
+import projectInstanceController from './controllers/projectInstanceController';
+import signUpController from './controllers/signUpController';
+import authController from './controllers/authController';
 
 /**
  * Contains all API routes for the application.
  */
 let router = Router();
 
-/**
- * GET /api/swagger.json
- */
-router.get('/swagger.json', (req, res) => {
-  res.json(swaggerSpec);
-});
-
-/**
- * @swagger
- * definitions:
- *   App:
- *     title: App
- *     type: object
- *     properties:
- *       app:
- *         type: string
- *       apiVersion:
- *         type: string
- */
-
-/**
- * @swagger
- * /:
- *   get:
- *     summary: Get API version
- *     description: App version
- *     produces:
- *       - application/json
- *     tags:
- *       - Base
- *     responses:
- *       200:
- *         description: Application and API version
- *         schema:
- *           title: Admins
- *           type: object
- *           $ref: '#/definitions/App'
- */
 router.get('/', (req, res) => {
   res.json({
     app: req.app.locals.title,
@@ -53,5 +18,8 @@ router.get('/', (req, res) => {
 });
 
 router.use('/admin', adminController);
+router.use('/projectInstance', projectInstanceController);
+router.use('/signUp', signUpController);
+router.use('/auth', authController);
 
 export default router;

@@ -28,7 +28,7 @@ router.get('/:id', (req, res, next) => {
 /**
  * POST /api/admin
  */
-router.post('/', adminValidator, (req, res, next) => {
+router.post('/', (req, res, next) => {
   adminService
     .createAdmin(req.body)
     .then(data => res.status(HttpStatus.CREATED).json({ data }))

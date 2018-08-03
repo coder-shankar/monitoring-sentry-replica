@@ -19,7 +19,7 @@ class ProjectInstance extends bookshelf.Model {
     return this.hasMany(Log);
   }
 
-  belongstoProject() {
+  belongsToProject() {
     return this.belongsTo(Project);
   }
 }
