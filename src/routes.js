@@ -4,6 +4,7 @@ import adminController from './controllers/adminsController';
 import projectInstanceController from './controllers/projectInstanceController';
 import signUpController from './controllers/signUpController';
 import authController from './controllers/authController';
+import projectController from './controllers/projectController';
 
 /**
  * Contains all API routes for the application.
@@ -21,5 +22,6 @@ router.use('/admin', adminController);
 router.use('/projectInstance', projectInstanceController);
 router.use('/signUp', signUpController);
 router.use('/auth', authController);
+router.use('/project', projectController);
 
 export default router;
