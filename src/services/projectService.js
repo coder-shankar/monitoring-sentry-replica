@@ -73,8 +73,18 @@ export async function createNewProject(project) {
       return pId;
     });
 
+  const adminId = await Admin.forge({
+    email: project.admin_email
+  })
+    .fetch()
+    .then(data => {
+      const pId = data.get('id');
+
+      return pId;
+    });
+
   const adminProjectTable = await new AdminProject({
-    admin_id: project.admin_id,
+    admin_id: adminId,
     project_id: projectId
   }).save();
 
