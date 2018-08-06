@@ -14,6 +14,13 @@ router.get('/', (req, res, next) => {
     .catch(err => next(err));
 });
 
+// router.get("/", (req, res, next) => {
+//   projectService
+//     .getAllProjects(req.headers)
+//     .then(data => res.json({ data }))
+//     .catch(err => next(err));
+// });
+
 /**
  * POST /api/admin
  */

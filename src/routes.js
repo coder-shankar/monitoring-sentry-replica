@@ -1,4 +1,7 @@
 import { Router } from 'express';
+// import { area } from 'Sentry-node-module';
+
+// console.log(area(4, 4));
 
 import adminController from './controllers/adminsController';
 import projectInstanceController from './controllers/projectInstanceController';
