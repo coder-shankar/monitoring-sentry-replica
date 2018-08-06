@@ -1,13 +1,9 @@
 import { Router } from 'express';
-// import { area } from "Sentry-node-module";
-
-// console.log(area(4, 4));
-
 import adminController from './controllers/adminsController';
-import projectInstanceController from './controllers/projectInstanceController';
 import signUpController from './controllers/signUpController';
 import authController from './controllers/authController';
 import projectController from './controllers/projectController';
+import projectInstanceController from './controllers/projectInstanceController';
 
 /**
  * Contains all API routes for the application.
