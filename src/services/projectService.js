@@ -1,23 +1,11 @@
-// import Boom from 'boom';
 import Project from '../models/projects';
 import AdminProject from '../models/admin_project';
 import Admin from '../models/admins';
 
-/**
- * Get all admin.
- *
- * @return {Promise}
- */
 export function getAllProjects() {
   return Project.fetchAll();
 }
 
-/**
- * Get a admin.
- *
- * @param  {Number|String}  id
- * @return {Promise}
- */
 export async function getRelatedProject(headers) {
   const email = headers.email;
   const adminId = await Admin.forge({
@@ -94,5 +82,4 @@ export async function createNewProject(project) {
   };
 
   return res;
-  //   AdminProject.forge({});
 }

@@ -5,7 +5,7 @@ const TABLE_NAME = 'logs';
 /**
  * logs model
  */
-class Logs extends bookshelf.Model {
+class Log extends bookshelf.Model {
   get tableName() {
     return TABLE_NAME;
   }
@@ -19,4 +19,4 @@ class Logs extends bookshelf.Model {
   }
 }
 
-export default Logs;
+export default Log;

@@ -1,6 +1,6 @@
 import ProjectInstance from '../models/project_instances';
 import Project from '../models/projects';
-import jwt from 'jsonwebtoken';
+import * as keyGenerator from '../utils/uniqueKey';
 
 /**
  * Get all ProjectInstances
@@ -20,7 +20,7 @@ export function getAllProjectInstances() {
 
 // here project_id is passed as body parameter but it should be known without passing;from header
 export async function createProjectInstance(projectInstance) {
-  const key = jwt.sign({ projectInstance }, 'secretKey');
+  const key = keyGenerator.createUniqueKey();
 
   const projectId = await Project.forge({
     project_name: projectInstance.project_name

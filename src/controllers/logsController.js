@@ -1,32 +1,22 @@
 import { Router } from 'express';
 import HttpStatus from 'http-status-codes';
-import * as logsService from '../services/logsService';
+import * as logsService from '../services/logsServices';
 
 const router = Router();
 
 /**
- * GET /api/admins
+ * GET /api/logs
  */
 router.get('/', (req, res, next) => {
   logsService
-    .getRelatedProject(req.headers)
+    .getAllLogs(req.headers)
     .then(data => res.json({ data }))
     .catch(err => next(err));
 });
 
-// router.get("/", (req, res, next) => {
-//   projectService
-//     .getAllProjects(req.headers)
-//     .then(data => res.json({ data }))
-//     .catch(err => next(err));
-// });
-
-/**
- * POST /api/admin
- */
 router.post('/', (req, res, next) => {
   logsService
-    .createNewProject(req.body)
+    .createNewLog(req.body)
     .then(data => res.status(HttpStatus.CREATED).json({ data }))
     .catch(err => next(err));
 });

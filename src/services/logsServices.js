@@ -1,29 +1,76 @@
 import ProjectInstance from '../models/project_instances';
-import Project from '../models/projects';
-import jwt from 'jsonwebtoken';
+import Logs from '../models/logs';
+// import Projects from '../models/projects';
 
 /**
- * Get all ProjectInstances
+ * Get all Logs
  *
  * @return {Promise}
  */
-export function getAllProjectInstances() {
-  return ProjectInstance.fetchAll();
+export function getAllLogs() {
+  return Logs.fetchAll();
 }
 
+// export async function getRelatedLogs(headers) {
+//   const projectName = headers.projectname;
+
+//   // const projectId = await Projects.forge({
+//   //   project_name: projectName
+//   // })
+//   //   .fetch()
+//   //   .then(data => {
+//   //     return data.get("id");
+//   //   });
+
+//   return Logs.fetchAll();
+// }
+
+// const adminId = await Admin.forge({
+//   email: email
+// })
+//   .fetch()
+//   .then(data => {
+//     const pId = data.get("id");
+
+//     return pId;
+//   });
+
+// const projects = await new AdminProject()
+//   .query(function(qb) {
+//     qb
+//       .where({
+//         admin_id: adminId
+//       })
+//       .select("project_id");
+//   })
+//   .fetchAll()
+//   .then(data => {
+//     const result = data.toJSON();
+
+//     return result;
+//   });
+
+// const projectId = [];
+
+// projects.forEach(element => {
+//   projectId.push(element.project_id);
+// });
+
+// return new Project()
+//   .query(function(qb) {
+//     qb.whereIn("id", [...projectId]);
+//   })
+//   .fetchAll();
 /**
- * Create new ProjectInstance
+ * Create new Log
  *
- * @param  {Object}  admin
+ * @param  {Object}  log
  * @return {Promise}
  */
 
-// here project_id is passed as body parameter but it should be known without passing;from header
-export async function createProjectInstance(projectInstance) {
-  const key = jwt.sign({ projectInstance }, 'secretKey');
-
-  const projectId = await Project.forge({
-    project_name: projectInstance.project_name
+export async function createNewLog(data) {
+  const projectInstanceId = await ProjectInstance.forge({
+    instance_key: data.unique_key
   })
     .fetch()
     .then(data => {
@@ -32,10 +79,10 @@ export async function createProjectInstance(projectInstance) {
       return pId;
     });
 
-  return new ProjectInstance({
-    instance_name: projectInstance.instanceName,
-    instance_key: key,
-    project_id: projectId
+  return new Logs({
+    type: data.error.type,
+    message: data.error.message,
+    project_instance_id: projectInstanceId
   }).save();
 }
 
