@@ -8,12 +8,13 @@ import adminController from './controllers/adminsController';
 import projectInstanceController from './controllers/projectInstanceController';
 
 // // checking Sentry-wannabe
-// import Sentry_Wannabe from "../../new-module/Sentry-node-module";
-// const instanceKey = "b58794fb-35f3-42b0-88bd-8cc4833572e6";
+// import Sentry_Wannabe from "../../sentry-node-module";
+// //for user try and project try of instance dev
+// const instanceKey = "e0d34d00-54c2-4202-a3fd-ca333a80a68a";
 // Sentry_Wannabe.configure(instanceKey);
 // let error = {
-//   type: "404  ok ok ok ",
-//   message: "thisalid one "
+//   type: "try 2 error ",
+//   message: "2nd try",
 // };
 // Sentry_Wannabe.log(error);
 /**

@@ -5,12 +5,12 @@
  */
 export function seed(knex, Promise) {
   // Deletes all existing entries
-  return knex('admin_project')
+  return knex('project_admins')
     .del()
     .then(() => {
       // Inserts seed entries
       return Promise.all([
-        knex('admin_project').insert([
+        knex('project_admins').insert([
           {
             admin_id: 1,
             updated_at: new Date(),

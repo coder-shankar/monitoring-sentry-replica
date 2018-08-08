@@ -1,6 +1,6 @@
 import bookshelf from '../db';
 
-const TABLE_NAME = 'admin_project';
+const TABLE_NAME = 'project_admins';
 
 /**
  * Admin model.

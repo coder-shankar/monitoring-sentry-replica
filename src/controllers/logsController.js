@@ -9,7 +9,7 @@ const router = Router();
  */
 router.get('/', (req, res, next) => {
   logsService
-    .getAllLogs(req.headers)
+    .getRelatedLogs(req.headers)
     .then(data => res.json({ data }))
     .catch(err => next(err));
 });

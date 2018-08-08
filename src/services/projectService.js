@@ -1,13 +1,14 @@
 import Project from '../models/projects';
 import AdminProject from '../models/admin_project';
 import Admin from '../models/admins';
+import Boom from 'boom';
 
 export function getAllProjects() {
   return Project.fetchAll();
 }
 
-export async function getRelatedProject(headers) {
-  const email = headers.email;
+export async function getRelatedProject(emailId) {
+  const email = emailId;
   const adminId = await Admin.forge({
     email: email
   })
@@ -82,4 +83,32 @@ export async function createNewProject(project) {
   };
 
   return res;
+}
+
+/**
+ * Delete a project.
+ *
+ * @param  {Number|String}  id
+ * @return {Promise}
+ */
+export function deleteProject(id) {
+  console.log('id', id);
+
+  return new Project({ id }).fetch().then(project => project.destroy());
+}
+
+/**
+ * Get a project.
+ *
+ * @param  {Number|String}  id
+ * @return {Promise}
+ */
+export function getProject(id) {
+  return new Project({ id }).fetch().then(project => {
+    if (project === null) {
+      throw new Boom.notFound('Project not found');
+    }
+
+    return project;
+  });
 }
