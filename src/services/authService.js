@@ -40,6 +40,7 @@ export function login(credentials) {
     return AdminToken.forge({ admin_id: user.get('id') })
       .fetch()
       .then(response => {
+        console.log('response', response);
         if (response) {
           tokenService.deleteTokenByUserId(response.get('admin_id'));
 

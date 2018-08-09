@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
-const ACCESS_TOKEN_SALT = 'secretKey';
-const REFRESH_TOKEN_SALT = 'refreshSecretKey';
+export const ACCESS_TOKEN_SALT = 'secretKey';
+export const REFRESH_TOKEN_SALT = 'refreshSecretKey';
 
 export function generateAuthTokens(payload, withRefreshToken = true) {
   let accessToken = jwt.sign({ payload }, ACCESS_TOKEN_SALT, {

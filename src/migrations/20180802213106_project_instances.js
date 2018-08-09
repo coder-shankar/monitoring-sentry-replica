@@ -12,7 +12,10 @@ export function up(knex) {
     table.timestamp('updated_at').notNull();
     table.string('instance_name').notNull();
     table.string('instance_key').notNull();
-    table.integer('project_id').references('projects.id');
+    table
+      .integer('project_id')
+      .references('projects.id')
+      .onDelete('CASCADE');
   });
 }
 

@@ -6,6 +6,7 @@ import signUpController from './controllers/signUpController';
 import projectController from './controllers/projectController';
 import adminController from './controllers/adminsController';
 import projectInstanceController from './controllers/projectInstanceController';
+import * as verifyToken from './middlewares/verifyTokens';
 
 // // checking Sentry-wannabe
 // import Sentry_Wannabe from "../../sentry-node-module";
@@ -29,11 +30,11 @@ router.get('/', (req, res) => {
   });
 });
 
-router.use('/admin', adminController);
-router.use('/projectInstance', projectInstanceController);
 router.use('/signUp', signUpController);
 router.use('/auth', authController);
-router.use('/project', projectController);
-router.use('/logs', logsController);
+router.use('/admin', adminController);
+router.use('/projectInstance', verifyToken.checkAccessToken, projectInstanceController);
+router.use('/project', verifyToken.checkAccessToken, projectController);
+router.use('/logs', verifyToken.checkAccessToken, logsController);
 
 export default router;
