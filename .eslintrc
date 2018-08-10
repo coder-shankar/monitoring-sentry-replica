@@ -5,7 +5,6 @@
     "mocha": true
   },
   "extends": [
-    "prettier",
     "eslint:recommended"
   ],
   "parserOptions": {
@@ -50,13 +49,7 @@
         "properties": "never"
       }
     ],
-    "quotes": [
-      2,
-      "single",
-      {
-        "allowTemplateLiterals": true
-      }
-    ],
+  
     "no-unused-vars": [
       "error",
       {
@@ -66,7 +59,7 @@
     "prettier/prettier": [
       "error",
       {
-        "singleQuote": true,
+        "singleQuote": false,
         "bracketSpacing": true,
         "printWidth": 120
       }

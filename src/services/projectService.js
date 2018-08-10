@@ -1,7 +1,7 @@
-import Project from '../models/projects';
-import AdminProject from '../models/admin_project';
-import Admin from '../models/admins';
-import Boom from 'boom';
+import Project from "../models/projects";
+import AdminProject from "../models/admin_project";
+import Admin from "../models/admins";
+import Boom from "boom";
 
 export function getAllProjects() {
   return Project.fetchAll();
@@ -14,18 +14,16 @@ export async function getRelatedProject(emailId) {
   })
     .fetch()
     .then(data => {
-      const pId = data.get('id');
+      const pId = data.get("id");
 
       return pId;
     });
 
   const projects = await new AdminProject()
     .query(function(qb) {
-      qb
-        .where({
-          admin_id: adminId
-        })
-        .select('project_id');
+      qb.where({
+        admin_id: adminId
+      }).select("project_id");
     })
     .fetchAll()
     .then(data => {
@@ -35,14 +33,13 @@ export async function getRelatedProject(emailId) {
     });
 
   const projectId = [];
-
   projects.forEach(element => {
     projectId.push(element.project_id);
   });
 
   return new Project()
     .query(function(qb) {
-      qb.whereIn('id', [...projectId]);
+      qb.whereIn("id", [...projectId]);
     })
     .fetchAll();
 }
@@ -57,7 +54,7 @@ export async function createNewProject(project) {
   })
     .fetch()
     .then(data => {
-      const pId = data.get('id');
+      const pId = data.get("id");
 
       return pId;
     });
@@ -67,7 +64,7 @@ export async function createNewProject(project) {
   })
     .fetch()
     .then(data => {
-      const pId = data.get('id');
+      const pId = data.get("id");
 
       return pId;
     });
@@ -92,7 +89,7 @@ export async function createNewProject(project) {
  * @return {Promise}
  */
 export function deleteProject(id) {
-  console.log('id', id);
+  console.log("id", id);
 
   return new Project({ id }).fetch().then(project => project.destroy());
 }
@@ -106,7 +103,7 @@ export function deleteProject(id) {
 export function getProject(id) {
   return new Project({ id }).fetch().then(project => {
     if (project === null) {
-      throw new Boom.notFound('Project not found');
+      throw new Boom.notFound("Project not found");
     }
 
     return project;

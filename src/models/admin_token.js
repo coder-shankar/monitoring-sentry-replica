@@ -1,6 +1,6 @@
-import bookshelf from '../db';
+import bookshelf from "../db";
 
-const TABLE_NAME = 'admin_tokens';
+const TABLE_NAME = "admin_tokens";
 
 /**
  * Admin model.

@@ -1,6 +1,6 @@
-import Boom from 'boom';
-import Admin from '../models/admins';
-import * as crypt from '../utils/crypt';
+import Boom from "boom";
+import Admin from "../models/admins";
+import * as crypt from "../utils/crypt";
 
 /**
  * Get all admin.
@@ -12,6 +12,19 @@ export function getAllAdmins() {
 }
 
 /**
+ * Get a admin by email
+ */
+export function getAdminByEmail(email) {
+  return new Admin({ email }).fetch().then(admin => {
+    if (!admin) {
+      throw new Boom.notFound("user not found");
+    }
+
+    return admin;
+  });
+}
+
+/**
  * Get a admin.
  *
  * @param  {Number|String}  id
@@ -20,7 +33,7 @@ export function getAllAdmins() {
 export function getAdmin(id) {
   return new Admin({ id }).fetch().then(admin => {
     if (!admin) {
-      throw new Boom.notFound('User not found');
+      throw new Boom.notFound("User not found");
     }
 
     return admin;
