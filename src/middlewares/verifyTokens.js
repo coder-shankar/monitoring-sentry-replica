@@ -5,11 +5,13 @@ export function checkAccessToken(req, res, next) {
   let token = req.headers["authorization"];
 
   if (token) {
-    const payload = jwt.verify(token, ACCESS_TOKEN_SALT);
-    if (!payload) {
-      res.status(401).json({ Error: "UNAUTHORIZED" });
-    } else {
+    console.log("token", token);
+    try {
+      const payload = jwt.verify(token, ACCESS_TOKEN_SALT);
+      console.log("token", payload);
       next();
+    } catch (err) {
+      res.status(401).json({ Error: "UNAUTHORIZED" });
     }
   } else {
     res.status(404).json({ Error: "ACCESS TOKEN NOT FOUND" });
