@@ -27,7 +27,7 @@ export async function getRelatedLogs(headers) {
       queryObj
         .select("*")
         .from("project_instances")
-        .leftJoin("logs", { "logs.project_instance_id": "project_instances.id" })
+        .innerJoin("logs", { "logs.project_instance_id": "project_instances.id" })
         .where({ "project_instances.project_id": projectId });
     })
     .fetchAll()
