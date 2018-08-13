@@ -1,6 +1,6 @@
-import { Router } from 'express';
-import HttpStatus from 'http-status-codes';
-import * as adminService from '../services/adminService';
+import { Router } from "express";
+import HttpStatus from "http-status-codes";
+import * as adminService from "../services/adminService";
 // import { findAdmin, adminValidator } from "../validators/adminValidator";
 
 const router = Router();
@@ -10,7 +10,7 @@ const router = Router();
  */
 
 // create new admin
-router.post('/', (req, res, next) => {
+router.post("/", (req, res, next) => {
   adminService
     .createAdmin(req.body)
     .then(data => res.status(HttpStatus.CREATED).json({ data }))

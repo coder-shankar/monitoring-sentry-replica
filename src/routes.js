@@ -9,12 +9,12 @@ import projectInstanceController from "./controllers/projectInstanceController";
 import * as verifyToken from "./middlewares/verifyTokens";
 // // checking Sentry-wannabe
 // import Sentry_Wannabe from "../../sentry-node-module";
-// //for user try and project try of instance dev
-// const instanceKey = "e0d34d00-54c2-4202-a3fd-ca333a80a68a";
+// // for user try and project try of instance dev
+// const instanceKey = "d04d51aa-b05d-48ba-83ee-c55289c294c8";
 // Sentry_Wannabe.configure(instanceKey);
 // let error = {
-//   type: "try 2 error ",
-//   message: "2nd try",
+//   type: "yarn ",
+//   message: "2nd try"
 // };
 // Sentry_Wannabe.log(error);
 /**
@@ -34,5 +34,5 @@ router.use("/auth", authController);
 router.use("/admin", adminController);
 router.use("/projectInstance", verifyToken.checkAccessToken, projectInstanceController);
 router.use("/project", verifyToken.checkAccessToken, projectController);
-router.use("/logs", verifyToken.checkAccessToken, logsController);
+router.use("/logs", logsController);
 export default router;

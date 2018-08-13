@@ -6,7 +6,7 @@ import { findProject } from "../validators/projectValidator";
 const router = Router();
 
 /**
- * GET /api/admins
+ * GET /api/related projects
  */
 router.get("/", (req, res, next) => {
   projectService
@@ -16,7 +16,21 @@ router.get("/", (req, res, next) => {
 });
 
 /**
- * POST /api/admin
+ * GET /api/related projects with id
+ */
+router.get("/:id", (req, res, next) => {
+  // console.log("user id", req.header);
+  projectService
+    .getProject(req.params.id)
+    .then(data => {
+      console.log("data project name", data);
+      res.json({ data });
+    })
+    .catch(err => next(err));
+});
+
+/**
+ * POST /api/projects
  */
 router.post("/", (req, res, next) => {
   projectService
@@ -25,8 +39,11 @@ router.post("/", (req, res, next) => {
     .catch(err => next(err));
 });
 
+/**  
+ * 
+ * DELETE /api/id
+ */
 router.delete("/:id", findProject, (req, res, next) => {
-  console.log("req body header --------------", req.params);
   projectService
     .deleteProject(req.params.id)
     .then(() => res.status(204).json({ Success: "Project Deleted" }))

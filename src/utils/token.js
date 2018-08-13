@@ -4,7 +4,6 @@ export const ACCESS_TOKEN_SALT = "secretKey";
 export const REFRESH_TOKEN_SALT = "refreshSecretKey";
 
 export function generateAuthTokens(payload, withRefreshToken = true) {
-  console.log("payload++++++++", payload);
   let accessToken = jwt.sign({ payload }, ACCESS_TOKEN_SALT, {
     expiresIn: "5000s"
   });

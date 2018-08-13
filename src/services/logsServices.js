@@ -1,6 +1,6 @@
-import ProjectInstance from '../models/project_instances';
-import Logs from '../models/logs';
-import Projects from '../models/projects';
+import ProjectInstance from "../models/project_instances";
+import Logs from "../models/logs";
+import Projects from "../models/projects";
 
 /**
  * Get all Logs
@@ -18,23 +18,20 @@ export async function getRelatedLogs(headers) {
   })
     .fetch()
     .then(data => {
-      return data.get('id');
+      return data.get("id");
     });
 
   // trying to join
   return new ProjectInstance()
     .query(queryObj => {
-      console.log('projectID.........................', projectId);
       queryObj
-        .select('*')
-        .from('project_instances')
-        .leftJoin('logs', { 'logs.project_instance_id': 'project_instances.id' })
-        .where({ 'project_instances.project_id': projectId });
+        .select("*")
+        .from("project_instances")
+        .leftJoin("logs", { "logs.project_instance_id": "project_instances.id" })
+        .where({ "project_instances.project_id": projectId });
     })
     .fetchAll()
     .then(data => {
-      console.log('data', data.model);
-
       return data;
     });
   // //
@@ -53,7 +50,7 @@ export async function createNewLog(data) {
   })
     .fetch()
     .then(data => {
-      const pId = data.get('id');
+      const pId = data.get("id");
 
       return pId;
     });

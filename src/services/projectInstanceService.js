@@ -1,14 +1,25 @@
-import ProjectInstance from '../models/project_instances';
-import Project from '../models/projects';
-import * as keyGenerator from '../utils/uniqueKey';
+import ProjectInstance from "../models/project_instances";
+import * as keyGenerator from "../utils/uniqueKey";
 
 /**
  * Get all ProjectInstances
  *
  * @return {Promise}
  */
-export function getAllProjectInstances() {
-  return ProjectInstance.fetchAll();
+export function getRelatedProjectInstances(projectID) {
+  const projectId = projectID;
+
+  return new ProjectInstance()
+    .query(queryObj => {
+      queryObj
+        .select("*")
+        .from("project_instances")
+        .where({ project_id: projectId });
+    })
+    .fetchAll()
+    .then(data => {
+      return data;
+    });
 }
 
 /**
@@ -19,18 +30,10 @@ export function getAllProjectInstances() {
  */
 
 // here project_id is passed as body parameter but it should be known without passing;from header
-export async function createProjectInstance(projectInstance) {
+export function createProjectInstance(projectInstance) {
   const key = keyGenerator.createUniqueKey();
 
-  const projectId = await Project.forge({
-    project_name: projectInstance.project_name
-  })
-    .fetch()
-    .then(data => {
-      const pId = data.get('id');
-
-      return pId;
-    });
+  const projectId = projectInstance.projectID;
 
   return new ProjectInstance({
     instance_name: projectInstance.instanceName,

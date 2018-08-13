@@ -21,9 +21,11 @@ export async function getRelatedProject(emailId) {
 
   const projects = await new AdminProject()
     .query(function(qb) {
-      qb.where({
-        admin_id: adminId
-      }).select("project_id");
+      qb
+        .where({
+          admin_id: adminId
+        })
+        .select("project_id");
     })
     .fetchAll()
     .then(data => {
@@ -89,8 +91,6 @@ export async function createNewProject(project) {
  * @return {Promise}
  */
 export function deleteProject(id) {
-  console.log("id", id);
-
   return new Project({ id }).fetch().then(project => project.destroy());
 }
 
@@ -101,10 +101,28 @@ export function deleteProject(id) {
  * @return {Promise}
  */
 export function getProject(id) {
+  console.log("id", id);
+
+  // return new Project()
+  //   .query(queryObj => {
+  //     queryObj
+  //       .select("*")
+  //       .from("projects")
+  //       .innerJoin("project_admins", { "project_admins.project_id": "projects.id" })
+  //       .where({ "project_admins.admin_id": adminId });
+  //   })
+  //   .fetchAll()
+  //   .then(data => {
+  //     console.data("daata", data);
+
+  //     return data;
+  //   });
+
   return new Project({ id }).fetch().then(project => {
     if (project === null) {
       throw new Boom.notFound("Project not found");
     }
+    console.log("project", project);
 
     return project;
   });

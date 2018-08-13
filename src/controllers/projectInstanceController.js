@@ -1,15 +1,16 @@
-import { Router } from 'express';
-import HttpStatus from 'http-status-codes';
-import * as projectInstanceService from '../services/projectInstanceService';
+import { Router } from "express";
+import HttpStatus from "http-status-codes";
+import * as projectInstanceService from "../services/projectInstanceService";
 
 const router = Router();
 
 /**
  * GET /api/project Instance
  */
-router.get('/', (req, res, next) => {
+router.get("/", (req, res, next) => {
+  // projectname always comes in non camelcase
   projectInstanceService
-    .getAllProjectInstances()
+    .getRelatedProjectInstances(req.headers.projectid)
     .then(data => res.json({ data }))
     .catch(err => next(err));
 });
@@ -17,7 +18,7 @@ router.get('/', (req, res, next) => {
 /**
  * POST /api/projectInstance
  */
-router.post('/', (req, res, next) => {
+router.post("/", (req, res, next) => {
   projectInstanceService
     .createProjectInstance(req.body)
     .then(data => res.status(HttpStatus.CREATED).json({ data }))
