@@ -10,7 +10,14 @@ const router = Router();
  */
 router.get("/", verifyToken.checkAccessToken, (req, res, next) => {
   logsService
-    .getRelatedLogs(req.headers)
+    .getRelatedLogs(req.headers.instanceid, req.headers.projectid)
+    .then(data => res.json({ data }))
+    .catch(err => next(err));
+});
+
+router.put("/", verifyToken.checkAccessToken, (req, res, next) => {
+  logsService
+    .updateLog(req.headers.logid)
     .then(data => res.json({ data }))
     .catch(err => next(err));
 });

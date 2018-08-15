@@ -16,6 +16,7 @@ export function up(knex) {
       .integer("project_instance_id")
       .references("project_instances.id")
       .onDelete("CASCADE");
+    table.boolean("resolved").defaultTo(false);
   });
 }
 

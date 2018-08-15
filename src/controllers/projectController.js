@@ -19,11 +19,9 @@ router.get("/", (req, res, next) => {
  * GET /api/related projects with id
  */
 router.get("/:id", (req, res, next) => {
-  // console.log("user id", req.header);
   projectService
-    .getProject(req.params.id)
+    .getProject(req.params.id, req.headers.userid)
     .then(data => {
-      console.log("data project name", data);
       res.json({ data });
     })
     .catch(err => next(err));
@@ -44,6 +42,7 @@ router.post("/", (req, res, next) => {
  * DELETE /api/id
  */
 router.delete("/:id", findProject, (req, res, next) => {
+  console.log("deleteId", req.params.id);
   projectService
     .deleteProject(req.params.id)
     .then(() => res.status(204).json({ Success: "Project Deleted" }))

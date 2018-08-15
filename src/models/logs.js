@@ -1,6 +1,6 @@
-import bookshelf from '../db';
-import ProjectInstance from './project_instances';
-const TABLE_NAME = 'logs';
+import bookshelf from "../db";
+import ProjectInstance from "./project_instances";
+const TABLE_NAME = "logs";
 
 /**
  * logs model

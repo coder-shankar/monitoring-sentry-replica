@@ -1,6 +1,6 @@
 import ProjectInstance from "../models/project_instances";
 import Logs from "../models/logs";
-import Projects from "../models/projects";
+// import Projects from "../models/projects";
 
 /**
  * Get all Logs
@@ -11,27 +11,21 @@ export function getAllLogs() {
   return Logs.fetchAll();
 }
 
-export async function getRelatedLogs(headers) {
-  const projectName = headers.projectname;
-  const projectId = await Projects.forge({
-    project_name: projectName
-  })
-    .fetch()
-    .then(data => {
-      return data.get("id");
-    });
-
+export function getRelatedLogs(instanceId = null, projectId) {
   // trying to join
-  return new ProjectInstance()
+  return new Logs()
     .query(queryObj => {
       queryObj
-        .select("*")
-        .from("project_instances")
-        .innerJoin("logs", { "logs.project_instance_id": "project_instances.id" })
-        .where({ "project_instances.project_id": projectId });
+        .select("logs.id", "logs.updated_at", "logs.type", "logs.message", "logs.resolved")
+        .from("logs")
+        .innerJoin("project_instances", { "logs.project_instance_id": "project_instances.id" })
+        .where({ "logs.project_instance_id": instanceId, "project_instances.project_id": projectId });
+      console.log(queryObj.toQuery());
     })
     .fetchAll()
     .then(data => {
+      console.log("datas", data);
+
       return data;
     });
   // //
@@ -60,4 +54,18 @@ export async function createNewLog(data) {
     message: data.error.message,
     project_instance_id: projectInstanceId
   }).save();
+}
+/**
+ * 
+ * @param {object} id 
+ * @param {promise} logs 
+ */
+export async function updateLog(id) {
+  const resolved = await Logs.forge({ id })
+    .fetch()
+    .then(data => {
+      return data.attributes.resolved;
+    });
+
+  return new Logs({ id }).save({ resolved: !resolved });
 }

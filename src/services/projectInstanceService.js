@@ -6,18 +6,26 @@ import * as keyGenerator from "../utils/uniqueKey";
  *
  * @return {Promise}
  */
-export function getRelatedProjectInstances(projectID) {
-  const projectId = projectID;
+export function getRelatedProjectInstances(projectId, userId) {
+  console.log("id---------------------", projectId);
 
   return new ProjectInstance()
     .query(queryObj => {
       queryObj
         .select("*")
-        .from("project_instances")
-        .where({ project_id: projectId });
+        .from("project_admins")
+        .innerJoin("projects", { "project_admins.project_id": "projects.id" })
+        .innerJoin("project_instances", { "project_instances.project_id": "projects.id" });
+      if (projectId === "all") {
+        queryObj.where({ "project_admins.admin_id": userId });
+      } else {
+        queryObj.where({ "project_admins.project_id": projectId, "project_admins.admin_id": userId });
+      }
     })
     .fetchAll()
     .then(data => {
+      console.log(data);
+
       return data;
     });
 }

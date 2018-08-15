@@ -26,14 +26,6 @@ export function login(credentials) {
     let tokens = jwt.generateAuthTokens(credentials);
     let { access, refresh } = tokens;
 
-    // let temp = jwt.verifyAccessToken(access);
-
-    // extract admin email like this
-    // console.log(
-    //   "The result is **************************8",
-    //    temp.payload.email
-    // );
-
     // generate access token and refresh token
     return AdminToken.forge({ admin_id: user.get("id") })
       .fetch()

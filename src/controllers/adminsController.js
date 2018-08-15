@@ -1,14 +1,14 @@
-import { Router } from 'express';
-import HttpStatus from 'http-status-codes';
-import * as adminService from '../services/adminService';
-import { findAdmin, adminValidator } from '../validators/adminValidator';
+import { Router } from "express";
+import HttpStatus from "http-status-codes";
+import * as adminService from "../services/adminService";
+import { findAdmin, adminValidator } from "../validators/adminValidator";
 
 const router = Router();
 
 /**
  * GET /api/admins
  */
-router.get('/', (req, res, next) => {
+router.get("/", (req, res, next) => {
   adminService
     .getAllAdmins()
     .then(data => res.json({ data }))
@@ -18,7 +18,7 @@ router.get('/', (req, res, next) => {
 /**
  * GET /api/admins/:id
  */
-router.get('/:id', (req, res, next) => {
+router.get("/:id", (req, res, next) => {
   adminService
     .getAdmin(req.params.id)
     .then(data => res.json({ data }))
@@ -28,7 +28,7 @@ router.get('/:id', (req, res, next) => {
 /**
  * POST /api/admin
  */
-router.post('/', (req, res, next) => {
+router.post("/", (req, res, next) => {
   adminService
     .createAdmin(req.body)
     .then(data => res.status(HttpStatus.CREATED).json({ data }))
@@ -38,7 +38,7 @@ router.post('/', (req, res, next) => {
 /**
  * PUT /api/admin/:id
  */
-router.put('/:id', findAdmin, adminValidator, (req, res, next) => {
+router.put("/:id", findAdmin, adminValidator, (req, res, next) => {
   adminService
     .updateAdmin(req.params.id, req.body)
     .then(data => res.json({ data }))
@@ -48,7 +48,7 @@ router.put('/:id', findAdmin, adminValidator, (req, res, next) => {
 /**
  * DELETE /api/admin/:id
  */
-router.delete('/:id', findAdmin, (req, res, next) => {
+router.delete("/:id", findAdmin, (req, res, next) => {
   adminService
     .deleteAdmin(req.params.id)
     .then(data => res.status(HttpStatus.NO_CONTENT).json({ data }))

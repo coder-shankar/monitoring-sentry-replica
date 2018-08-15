@@ -97,33 +97,38 @@ export function deleteProject(id) {
 /**
  * Get a project.
  *
- * @param  {Number|String}  id
+ * @param  {Number|String}  ids
  * @return {Promise}
  */
-export function getProject(id) {
-  console.log("id", id);
+export function getProject(id, userId = null) {
+  console.log("id------------", id);
 
-  // return new Project()
-  //   .query(queryObj => {
-  //     queryObj
-  //       .select("*")
-  //       .from("projects")
-  //       .innerJoin("project_admins", { "project_admins.project_id": "projects.id" })
-  //       .where({ "project_admins.admin_id": adminId });
-  //   })
-  //   .fetchAll()
-  //   .then(data => {
-  //     console.data("daata", data);
+  return new Project()
+    .query(queryObj => {
+      queryObj
+        .select("*")
+        .from("projects")
+        .innerJoin("project_admins", { "projects.id": "project_admins.project_id" });
+      if (id === "all") {
+        queryObj.where({ "project_admins.admin_id": userId });
+      } else {
+        queryObj.where({ "project_admins.admin_id": userId, "projects.id": id });
+      }
+    })
+    .fetchAll()
+    .then(project => {
+      if (project === null) {
+        throw new Boom.notFound("Project not found");
+      }
 
-  //     return data;
-  //   });
+      return project;
+    });
 
-  return new Project({ id }).fetch().then(project => {
-    if (project === null) {
-      throw new Boom.notFound("Project not found");
-    }
-    console.log("project", project);
+  // return new Project({ id }).fetch().then(project => {
+  //   if (project === null) {
+  //     throw new Boom.notFound("Project not found");
+  //   }
 
-    return project;
-  });
+  //   return project;
+  // });
 }

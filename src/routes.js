@@ -7,14 +7,14 @@ import projectController from "./controllers/projectController";
 import adminController from "./controllers/adminsController";
 import projectInstanceController from "./controllers/projectInstanceController";
 import * as verifyToken from "./middlewares/verifyTokens";
-// // checking Sentry-wannabe
+// // // checking Sentry-wannabe
 // import Sentry_Wannabe from "../../sentry-node-module";
 // // for user try and project try of instance dev
-// const instanceKey = "d04d51aa-b05d-48ba-83ee-c55289c294c8";
+// const instanceKey = "446d9983-6d24-404d-862e-010838629af3";
 // Sentry_Wannabe.configure(instanceKey);
 // let error = {
-//   type: "yarn ",
-//   message: "2nd try"
+//   type: "ok 1st try ",
+//   message: "1st"
 // };
 // Sentry_Wannabe.log(error);
 /**
