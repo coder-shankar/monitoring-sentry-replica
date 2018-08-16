@@ -11,15 +11,37 @@ export function getAllLogs() {
   return Logs.fetchAll();
 }
 
-export function getRelatedLogs(instanceId = null, projectId) {
+export function getRelatedLogs(instanceId, projectId, userId) {
+  console.log("projectID-------------", projectId);
+  console.log("instanceID-------------", instanceId);
+  console.log("userID-------------", userId);
+
   // trying to join
   return new Logs()
     .query(queryObj => {
       queryObj
-        .select("logs.id", "logs.updated_at", "logs.type", "logs.message", "logs.resolved")
+        .select(
+          "logs.id",
+          "project_instances.instance_name",
+          "logs.updated_at",
+          "logs.type",
+          "logs.message",
+          "logs.resolved",
+          "projects.project_name"
+        )
+        // .select("*")
         .from("logs")
         .innerJoin("project_instances", { "logs.project_instance_id": "project_instances.id" })
-        .where({ "logs.project_instance_id": instanceId, "project_instances.project_id": projectId });
+        .innerJoin("project_admins", { "project_instances.project_id": "project_admins.project_id" })
+        .innerJoin("projects", { "projects.id": "project_admins.project_id" })
+        .where({ "project_admins.admin_id": userId });
+      if (projectId === "all" && instanceId === "all") {
+        return;
+      } else if (instanceId === "all") {
+        queryObj.where({ "project_instances.project_id": projectId });
+      } else {
+        queryObj.where({ "logs.project_instance_id": instanceId, "project_instances.project_id": projectId });
+      }
       console.log(queryObj.toQuery());
     })
     .fetchAll()

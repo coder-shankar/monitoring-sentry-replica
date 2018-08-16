@@ -19,10 +19,21 @@ router.get("/", (req, res, next) => {
  * POST /api/projectInstance
  */
 router.post("/", (req, res, next) => {
-  console.log("headersa", req.body);
   projectInstanceService
     .createProjectInstance(req.body)
     .then(data => res.status(HttpStatus.CREATED).json({ data }))
+    .catch(err => next(err));
+});
+
+/**  
+ * 
+ * DELETE /api/id
+ */
+router.delete("/:id", (req, res, next) => {
+  console.log("id", req.params.id);
+  projectInstanceService
+    .deleteProjectInstance(req.params.id)
+    .then(() => res.status(204).json({ Success: "Project Instance Deleted" }))
     .catch(err => next(err));
 });
 
