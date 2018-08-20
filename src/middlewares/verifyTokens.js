@@ -8,7 +8,6 @@ export function checkAccessToken(req, res, next) {
     try {
       const payload = jwt.verify(token, ACCESS_TOKEN_SALT);
       console.log(payload);
-
       next();
     } catch (err) {
       res.status(401).json({ Error: "UNAUTHORIZED" });
