@@ -42,7 +42,6 @@ router.post("/", (req, res, next) => {
  * DELETE /api/id
  */
 router.delete("/:id", findProject, (req, res, next) => {
-  console.log("deleteId", req.params.id);
   projectService
     .deleteProject(req.params.id)
     .then(() => res.status(204).json({ Success: "Project Deleted" }))

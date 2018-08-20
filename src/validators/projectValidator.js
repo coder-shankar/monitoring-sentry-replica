@@ -8,8 +8,6 @@ import * as projectService from "../services/projectService";
  * @return {Promise}
  */
 function findProject(req, res, next) {
-  console.log("asdsadasdsdsadsad", req.params);
-
   return projectService
     .getProject(req.params.id)
     .then(() => next())

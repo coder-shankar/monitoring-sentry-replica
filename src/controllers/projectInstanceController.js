@@ -9,8 +9,12 @@ const router = Router();
  */
 router.get("/", (req, res, next) => {
   // projectname always comes in non camelcase
+
+  if (req.headers.instanceid === "undefined") {
+    req.headers.instanceid = null;
+  }
   projectInstanceService
-    .getRelatedProjectInstances(req.headers.projectid, req.headers.userid)
+    .getRelatedProjectInstances(req.headers.projectid, req.headers.userid, req.headers.instanceid)
     .then(data => res.json({ data }))
     .catch(err => next(err));
 });
@@ -30,7 +34,6 @@ router.post("/", (req, res, next) => {
  * DELETE /api/id
  */
 router.delete("/:id", (req, res, next) => {
-  console.log("id", req.params.id);
   projectInstanceService
     .deleteProjectInstance(req.params.id)
     .then(() => res.status(204).json({ Success: "Project Instance Deleted" }))

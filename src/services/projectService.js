@@ -101,8 +101,6 @@ export function deleteProject(id) {
  * @return {Promise}
  */
 export function getProject(id, userId = null) {
-  console.log("id------------", id);
-
   return new Project()
     .query(queryObj => {
       queryObj

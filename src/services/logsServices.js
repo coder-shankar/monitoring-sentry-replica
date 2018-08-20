@@ -12,10 +12,6 @@ export function getAllLogs() {
 }
 
 export function getRelatedLogs(instanceId, projectId, userId) {
-  console.log("projectID-------------", projectId);
-  console.log("instanceID-------------", instanceId);
-  console.log("userID-------------", userId);
-
   // trying to join
   return new Logs()
     .query(queryObj => {
@@ -42,12 +38,9 @@ export function getRelatedLogs(instanceId, projectId, userId) {
       } else {
         queryObj.where({ "logs.project_instance_id": instanceId, "project_instances.project_id": projectId });
       }
-      console.log(queryObj.toQuery());
     })
     .fetchAll()
     .then(data => {
-      console.log("datas", data);
-
       return data;
     });
   // //

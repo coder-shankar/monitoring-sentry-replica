@@ -6,8 +6,10 @@ import * as keyGenerator from "../utils/uniqueKey";
  *
  * @return {Promise}
  */
-export function getRelatedProjectInstances(projectId, userId) {
+export function getRelatedProjectInstances(projectId, userId, instanceId) {
   console.log("id---------------------", projectId);
+  console.log("userId---------------------", userId);
+  console.log("instanceId---------------------", instanceId);
 
   return new ProjectInstance()
     .query(queryObj => {
@@ -18,17 +20,41 @@ export function getRelatedProjectInstances(projectId, userId) {
         .innerJoin("project_instances", { "project_instances.project_id": "projects.id" });
       if (projectId === "all") {
         queryObj.where({ "project_admins.admin_id": userId });
+      } else if (instanceId) {
+        queryObj.where({
+          "project_admins.project_id": projectId,
+          "project_admins.admin_id": userId,
+          "project_instances.id": instanceId
+        });
       } else {
         queryObj.where({ "project_admins.project_id": projectId, "project_admins.admin_id": userId });
       }
     })
     .fetchAll()
     .then(data => {
-      console.log(data);
-
       return data;
     });
 }
+
+// export function getRelatedSpecificProjectInstances(projectId, userId, instanceId) {
+//   return new ProjectInstance()
+//     .query(queryObj => {
+//       queryObj
+//         .select("*")
+//         .from("project_admins")
+//         .innerJoin("projects", { "project_admins.project_id": "projects.id" })
+//         .innerJoin("project_instances", { "project_instances.project_id": "projects.id" })
+//         .where({
+//           "project_admins.project_id": projectId,
+//           "project_admins.admin_id": userId,
+//           "project_instances.id": instanceId
+//         });
+//     })
+//     .fetch()
+//     .then(data => {
+//       return data;
+//     });
+// }
 
 /**
  * Create new ProjectInstance
