@@ -46,8 +46,14 @@ export function getAdmin(id) {
  * @param  {Object}  admin
  * @return {Promise}
  */
-export function createAdmin(admin) {
+export async function createAdmin(admin) {
   let password = crypt.encrypt(admin.password);
+
+  const adminData = await new Admin({ email: admin.email }).fetch();
+
+  if (adminData) {
+    throw new Boom.notFound("email already used");
+  }
 
   return new Admin({
     email: admin.email,
