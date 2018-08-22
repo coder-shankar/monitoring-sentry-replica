@@ -1,4 +1,4 @@
-import HttpStatus from 'http-status-codes';
+import HttpStatus from "http-status-codes";
 
 /**
  * Build error response for validation errors.
@@ -17,7 +17,7 @@ function buildError(err) {
         err.details.map(err => {
           return {
             message: err.message,
-            param: err.path.join('.')
+            param: err.path.join(".")
           };
         })
     };

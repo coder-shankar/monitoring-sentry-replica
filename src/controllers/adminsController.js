@@ -1,56 +1,56 @@
 import { Router } from "express";
 import HttpStatus from "http-status-codes";
-import * as userService from "../services/userService";
-import { findUser, userValidator } from "../validators/userValidator";
+import * as adminService from "../services/adminService";
+import { findAdmin, adminValidator } from "../validators/adminValidator";
 
 const router = Router();
 
 /**
- * GET /api/users
+ * GET /api/admins
  */
 router.get("/", (req, res, next) => {
-  userService
-    .getAllUsers()
+  adminService
+    .getAllAdmins()
     .then(data => res.json({ data }))
     .catch(err => next(err));
 });
 
 /**
- * GET /api/users/:id
+ * GET /api/admins/:id
  */
 router.get("/:id", (req, res, next) => {
-  userService
-    .getUser(req.params.id)
+  adminService
+    .getAdmin(req.params.id)
     .then(data => res.json({ data }))
     .catch(err => next(err));
 });
 
 /**
- * POST /api/users
+ * POST /api/admin
  */
-router.post("/", userValidator, (req, res, next) => {
-  userService
-    .createUser(req.body)
+router.post("/", (req, res, next) => {
+  adminService
+    .createAdmin(req.body)
     .then(data => res.status(HttpStatus.CREATED).json({ data }))
     .catch(err => next(err));
 });
 
 /**
- * PUT /api/users/:id
+ * PUT /api/admin/:id
  */
-router.put("/:id", findUser, userValidator, (req, res, next) => {
-  userService
-    .updateUser(req.params.id, req.body)
+router.put("/:id", findAdmin, adminValidator, (req, res, next) => {
+  adminService
+    .updateAdmin(req.params.id, req.body)
     .then(data => res.json({ data }))
     .catch(err => next(err));
 });
 
 /**
- * DELETE /api/users/:id
+ * DELETE /api/admin/:id
  */
-router.delete("/:id", findUser, (req, res, next) => {
-  userService
-    .deleteUser(req.params.id)
+router.delete("/:id", findAdmin, (req, res, next) => {
+  adminService
+    .deleteAdmin(req.params.id)
     .then(data => res.status(HttpStatus.NO_CONTENT).json({ data }))
     .catch(err => next(err));
 });
