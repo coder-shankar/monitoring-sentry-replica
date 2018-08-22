@@ -1,7 +1,7 @@
-import bookshelf from '../db';
-import Project from './projects';
-import Log from './logs';
-const TABLE_NAME = 'project_instances';
+import bookshelf from "../db";
+import Project from "./projects";
+import Log from "./logs";
+const TABLE_NAME = "project_instances";
 
 /**
  * Admin Project_Instance.

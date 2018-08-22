@@ -1,5 +1,5 @@
-import Boom from 'boom';
-import User from '../models/user';
+import Boom from "boom";
+import User from "../models/user";
 
 /**
  * Get all users.
@@ -19,7 +19,7 @@ export function getAllUsers() {
 export function getUser(id) {
   return new User({ id }).fetch().then(user => {
     if (!user) {
-      throw new Boom.notFound('User not found');
+      throw new Boom.notFound("User not found");
     }
 
     return user;

@@ -12,6 +12,7 @@ export function up(knex) {
     table.timestamp("updated_at").notNull();
     table.string("type").notNull();
     table.string("message").notNull();
+    table.json("errorDetails");
     table
       .integer("project_instance_id")
       .references("project_instances.id")

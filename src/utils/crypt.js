@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt-nodejs';
+import bcrypt from "bcrypt-nodejs";
 
 // const SALT_WORK_FACTOR = 10;
 

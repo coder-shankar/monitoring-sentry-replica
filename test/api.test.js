@@ -1,11 +1,11 @@
-import { expect } from 'chai';
-import app from '../src/index';
-import request from 'supertest';
+import { expect } from "chai";
+import app from "../src/index";
+import request from "supertest";
 
-describe('Base API Test', () => {
-  it('should return API version and title for the app', done => {
+describe("Base API Test", () => {
+  it("should return API version and title for the app", done => {
     request(app)
-      .get('/api')
+      .get("/api")
       .end((err, res) => {
         expect(res.statusCode).to.be.equal(200);
         expect(res.body.app).to.be.equal(app.locals.title);
@@ -15,7 +15,7 @@ describe('Base API Test', () => {
       });
   });
 
-  it('should return 405 method not allowed for random API hits', done => {
+  it("should return 405 method not allowed for random API hits", done => {
     let randomString = Math.random()
       .toString(36)
       .substr(2, 5);
@@ -25,7 +25,7 @@ describe('Base API Test', () => {
       .end((err, res) => {
         expect(res.statusCode).to.be.equal(405);
         expect(res.body.error.code).to.be.equal(405);
-        expect(res.body.error.message).to.be.equal('Method Not Allowed');
+        expect(res.body.error.message).to.be.equal("Method Not Allowed");
 
         done();
       });
