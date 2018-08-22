@@ -23,6 +23,7 @@ export function getRelatedLogs(instanceId, projectId, userId) {
           "logs.type",
           "logs.message",
           "logs.resolved",
+          "logs.errorDetails",
           "projects.project_name"
         )
         // .select("*")
@@ -54,6 +55,13 @@ export function getRelatedLogs(instanceId, projectId, userId) {
  */
 
 export async function createNewLog(data) {
+  console.log("res+--------", data);
+
+  const { status, statusMessage, errorDetails } = data.error;
+  console.log("status------------------------------------", status);
+  console.log("statusMessage----------------------------", statusMessage);
+  console.log("errorDetails--------------------------", errorDetails);
+
   const projectInstanceId = await ProjectInstance.forge({
     instance_key: data.unique_key
   })
@@ -65,9 +73,10 @@ export async function createNewLog(data) {
     });
 
   return new Logs({
-    type: data.error.type,
-    message: data.error.message,
-    project_instance_id: projectInstanceId
+    type: status,
+    message: statusMessage,
+    project_instance_id: projectInstanceId,
+    errorDetails
   }).save();
 }
 /**
@@ -83,4 +92,14 @@ export async function updateLog(id) {
     });
 
   return new Logs({ id }).save({ resolved: !resolved });
+}
+
+/**
+ * Delete Log.
+ *
+ * @param  {Number|String}  id
+ * @return {Promise}
+ */
+export function deleteLog(id) {
+  return new Logs({ id }).fetch().then(Log => Log.destroy());
 }

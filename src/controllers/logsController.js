@@ -29,4 +29,15 @@ router.post("/", (req, res, next) => {
     .catch(err => next(err));
 });
 
+/**  
+ * 
+ * DELETE /api/id
+ */
+router.delete("/:id", (req, res, next) => {
+  logsService
+    .deleteLog(req.params.id)
+    .then(() => res.status(204).json({ Success: "Log Deleted" }))
+    .catch(err => next(err));
+});
+
 export default router;

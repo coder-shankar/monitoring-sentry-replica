@@ -1,6 +1,6 @@
-import bookshelf from '../db';
+import bookshelf from "../db";
 
-const TABLE_NAME = 'users';
+const TABLE_NAME = "users";
 
 /**
  * User model.

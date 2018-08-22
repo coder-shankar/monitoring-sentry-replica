@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi from "joi";
 
 /**
  * Utility helper for Joi validation.

@@ -10,11 +10,12 @@ import * as verifyToken from "./middlewares/verifyTokens";
 // // // checking Sentry-wannabe
 // import Sentry_Wannabe from "../../sentry-node-module";
 // // for user try and project try of instance dev
-// const instanceKey = "d541d7c4-3741-4e0c-9a15-dda686b79ba2";
+// const instanceKey = "dfea955a-6e0e-4a75-a369-7d45c37da45d";
 // Sentry_Wannabe.configure(instanceKey);
 // let error = {
-//   type: "QA",
-//   message: "Error QA"
+//   status: "QAOKOKOKOKOKasd",
+//   statusMessage: "ErrorsdOKOKOKOKOKOKsadas QA",
+//   errorDetails: "ERRadaOKOKOKOKsdOR"
 // };
 // Sentry_Wannabe.log(error);
 /**

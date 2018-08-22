@@ -7,10 +7,6 @@ import * as keyGenerator from "../utils/uniqueKey";
  * @return {Promise}
  */
 export function getRelatedProjectInstances(projectId, userId, instanceId) {
-  console.log("id---------------------", projectId);
-  console.log("userId---------------------", userId);
-  console.log("instanceId---------------------", instanceId);
-
   return new ProjectInstance()
     .query(queryObj => {
       queryObj

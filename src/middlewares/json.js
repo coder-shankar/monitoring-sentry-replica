@@ -1,5 +1,5 @@
-import Boom from 'boom';
-import _isEmpty from 'lodash/isEmpty';
+import Boom from "boom";
+import _isEmpty from "lodash/isEmpty";
 
 /**
  * Middleware to handle empty JSON body requests and other edge cases if any.
@@ -10,10 +10,10 @@ import _isEmpty from 'lodash/isEmpty';
  */
 export default function json(request, response, next) {
   const { body, method } = request;
-  const disallowedHttpHeaders = ['PUT', 'POST', 'PATCH'];
+  const disallowedHttpHeaders = ["PUT", "POST", "PATCH"];
 
-  if (request.is('application/json') && disallowedHttpHeaders.includes(method) && _isEmpty(body)) {
-    throw new Boom.badRequest('Empty JSON');
+  if (request.is("application/json") && disallowedHttpHeaders.includes(method) && _isEmpty(body)) {
+    throw new Boom.badRequest("Empty JSON");
   }
 
   next();

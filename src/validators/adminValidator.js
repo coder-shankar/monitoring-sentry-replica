@@ -1,10 +1,10 @@
-import Joi from 'joi';
-import validate from '../utils/validate';
-import * as adminService from '../services/adminService';
+import Joi from "joi";
+import validate from "../utils/validate";
+import * as adminService from "../services/adminService";
 
 const SCHEMA = {
   name: Joi.string()
-    .label('Name')
+    .label("Name")
     .max(90)
     .required()
 };
