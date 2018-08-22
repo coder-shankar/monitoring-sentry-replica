@@ -7,8 +7,8 @@ import projectController from "./controllers/projectController";
 import adminController from "./controllers/adminsController";
 import projectInstanceController from "./controllers/projectInstanceController";
 import * as verifyToken from "./middlewares/verifyTokens";
-// // // checking Sentry-wannabe
-// import Sentry_Wannabe from "../../sentry-node-module";
+// // checking Sentry-wannabe
+// import Sentry_Wannabe from "../../node-modules";
 // // for user try and project try of instance dev
 // const instanceKey = "dfea955a-6e0e-4a75-a369-7d45c37da45d";
 // Sentry_Wannabe.configure(instanceKey);
@@ -18,6 +18,7 @@ import * as verifyToken from "./middlewares/verifyTokens";
 //   errorDetails: "ERRadaOKOKOKOKsdOR"
 // };
 // Sentry_Wannabe.log(error);
+
 /**
  * Contains all API routes for the application.
  */

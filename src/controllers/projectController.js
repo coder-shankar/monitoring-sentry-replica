@@ -5,7 +5,7 @@ import { findProject } from "../validators/projectValidator";
 // import Sentry_Wannabe from "../../../sentry-node-module";
 
 const router = Router();
-// const instanceKey = "e68b3b8e-2071-44f7-9ce3-0ae0958653f3";
+// const instanceKey = "25f579b5-fb08-4fe3-8382-a4d27e10921c";
 // Sentry_Wannabe.configure(instanceKey);
 
 /**
@@ -31,9 +31,16 @@ const router = Router();
  * GET /api/related projects
  */
 router.get("/", (req, res, next) => {
+  const searchQuery = req.query.search || "";
+  const rowsPerPage = parseInt(req.query.rowsPerPage);
+  const page = parseInt(req.query.page);
+  console.log("searchQuery" + req.query.search);
+
   projectService
-    .getRelatedProject(req.headers.email)
-    .then(data => res.json({ data }))
+    .getRelatedProject(searchQuery, rowsPerPage, page, req.headers.email)
+    .then(data => {
+      return res.json({ data, pagination: data.pagination });
+    })
     .catch(err => next(err));
 });
 
@@ -52,6 +59,7 @@ router.get("/:id", (req, res, next) => {
 /**
  * POST /api/projects
  */
+
 // router.post("/", (req, res, next) => {
 //   projectService
 //     .createNewProject()
@@ -76,8 +84,8 @@ router.post("/", (req, res, next) => {
     .catch(err => next(err));
 });
 
-/**  
- * 
+/**
+ *
  * DELETE /api/id
  */
 router.delete("/:id", findProject, (req, res, next) => {

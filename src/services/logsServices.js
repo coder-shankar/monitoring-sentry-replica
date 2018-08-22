@@ -11,7 +11,7 @@ export function getAllLogs() {
   return Logs.fetchAll();
 }
 
-export function getRelatedLogs(instanceId, projectId, userId) {
+export function getRelatedLogs(searchQuery, rowsPerPage, page, instanceId, projectId, userId) {
   // trying to join
   return new Logs()
     .query(queryObj => {
@@ -31,16 +31,21 @@ export function getRelatedLogs(instanceId, projectId, userId) {
         .innerJoin("project_instances", { "logs.project_instance_id": "project_instances.id" })
         .innerJoin("project_admins", { "project_instances.project_id": "project_admins.project_id" })
         .innerJoin("projects", { "projects.id": "project_admins.project_id" })
-        .where({ "project_admins.admin_id": userId });
+        .where({ "project_admins.admin_id": userId })
+        .where("logs.type", "ILIKE", "%" + searchQuery + "%");
       if (projectId === "all" && instanceId === "all") {
         return;
       } else if (instanceId === "all") {
-        queryObj.where({ "project_instances.project_id": projectId });
+        queryObj
+          .where({ "project_instances.project_id": projectId })
+          .where("logs.type", "ILIKE", "%" + searchQuery + "%");
       } else {
-        queryObj.where({ "logs.project_instance_id": instanceId, "project_instances.project_id": projectId });
+        queryObj
+          .where({ "logs.project_instance_id": instanceId, "project_instances.project_id": projectId })
+          .where("logs.type", "ILIKE", "%" + searchQuery + "%");
       }
     })
-    .fetchAll()
+    .fetchPage({ pageSize: rowsPerPage, page: page + 1 })
     .then(data => {
       return data;
     });
@@ -80,9 +85,9 @@ export async function createNewLog(data) {
   }).save();
 }
 /**
- * 
- * @param {object} id 
- * @param {promise} logs 
+ *
+ * @param {object} id
+ * @param {promise} logs
  */
 export async function updateLog(id) {
   const resolved = await Logs.forge({ id })

@@ -8,14 +8,23 @@ const router = Router();
  * GET /api/project Instance
  */
 router.get("/", (req, res, next) => {
-  // projectname always comes in non camelcase
-
   if (req.headers.instanceid === "undefined") {
     req.headers.instanceid = null;
   }
+  const searchQuery = req.query.search || "";
+  const rowsPerPage = parseInt(req.query.rowsPerPage);
+  const page = parseInt(req.query.page);
+
   projectInstanceService
-    .getRelatedProjectInstances(req.headers.projectid, req.headers.userid, req.headers.instanceid)
-    .then(data => res.json({ data }))
+    .getRelatedProjectInstances(
+      searchQuery,
+      rowsPerPage,
+      page,
+      req.headers.projectid,
+      req.headers.userid,
+      req.headers.instanceid
+    )
+    .then(data => res.json({ data, pagination: data.pagination }))
     .catch(err => next(err));
 });
 
@@ -29,8 +38,8 @@ router.post("/", (req, res, next) => {
     .catch(err => next(err));
 });
 
-/**  
- * 
+/**
+ *
  * DELETE /api/id
  */
 router.delete("/:id", (req, res, next) => {
