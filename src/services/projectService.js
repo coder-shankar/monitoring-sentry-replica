@@ -7,7 +7,8 @@ export function getAllProjects() {
   return Project.fetchAll();
 }
 
-export async function getRelatedProject(emailId) {
+export async function getRelatedProject(searchQuery, rowsPerPage, page, emailId) {
+  console.log("searchQuery", searchQuery);
   const email = emailId;
   const adminId = await Admin.forge({
     email: email
@@ -21,11 +22,9 @@ export async function getRelatedProject(emailId) {
 
   const projects = await new AdminProject()
     .query(function(qb) {
-      qb
-        .where({
-          admin_id: adminId
-        })
-        .select("project_id");
+      qb.where({
+        admin_id: adminId
+      }).select("project_id");
     })
     .fetchAll()
     .then(data => {
@@ -41,9 +40,9 @@ export async function getRelatedProject(emailId) {
 
   return new Project()
     .query(function(qb) {
-      qb.whereIn("id", [...projectId]);
+      qb.whereIn("id", [...projectId]).where("project_name", "ILIKE", "%" + searchQuery + "%");
     })
-    .fetchAll();
+    .fetchPage({ pageSize: rowsPerPage, page: page + 1 });
 }
 
 export async function createNewProject(project) {

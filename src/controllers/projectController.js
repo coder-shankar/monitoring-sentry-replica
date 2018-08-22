@@ -9,9 +9,16 @@ const router = Router();
  * GET /api/related projects
  */
 router.get("/", (req, res, next) => {
+  const searchQuery = req.query.search || "";
+  const rowsPerPage = parseInt(req.query.rowsPerPage);
+  const page = parseInt(req.query.page);
+  console.log("searchQuery" + req.query.search);
+
   projectService
-    .getRelatedProject(req.headers.email)
-    .then(data => res.json({ data }))
+    .getRelatedProject(searchQuery, rowsPerPage, page, req.headers.email)
+    .then(data => {
+      return res.json({ data, pagination: data.pagination });
+    })
     .catch(err => next(err));
 });
 
@@ -37,8 +44,8 @@ router.post("/", (req, res, next) => {
     .catch(err => next(err));
 });
 
-/**  
- * 
+/**
+ *
  * DELETE /api/id
  */
 router.delete("/:id", findProject, (req, res, next) => {

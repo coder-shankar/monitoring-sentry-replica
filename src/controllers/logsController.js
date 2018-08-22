@@ -9,9 +9,12 @@ const router = Router();
  * GET /api/logs
  */
 router.get("/", verifyToken.checkAccessToken, (req, res, next) => {
+  const searchQuery = req.query.search || "";
+  const rowsPerPage = parseInt(req.query.rowsPerPage);
+  const page = parseInt(req.query.page);
   logsService
-    .getRelatedLogs(req.headers.instanceid, req.headers.projectid, req.headers.userid)
-    .then(data => res.json({ data }))
+    .getRelatedLogs(searchQuery, rowsPerPage, page, req.headers.instanceid, req.headers.projectid, req.headers.userid)
+    .then(data => res.json({ data, pagination: data.pagination }))
     .catch(err => next(err));
 });
 
