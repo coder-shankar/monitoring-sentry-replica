@@ -5,7 +5,7 @@ import { findProject } from "../validators/projectValidator";
 // import Sentry_Wannabe from "../../../sentry-node-module";
 
 const router = Router();
-// const instanceKey = "25f579b5-fb08-4fe3-8382-a4d27e10921c";
+// const instanceKey = "747a5864-0a56-43e2-9992-4e6234438908";
 // Sentry_Wannabe.configure(instanceKey);
 
 /**
@@ -92,6 +92,13 @@ router.delete("/:id", findProject, (req, res, next) => {
   projectService
     .deleteProject(req.params.id)
     .then(() => res.status(204).json({ Success: "Project Deleted" }))
+    .catch(err => next(err));
+});
+
+router.put("/", (req, res, next) => {
+  projectService
+    .updateProject(req.headers.projectid, req.headers.project_name, req.headers.description)
+    .then(data => res.json({ data }))
     .catch(err => next(err));
 });
 
