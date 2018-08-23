@@ -55,10 +55,8 @@
     "serve-favicon": "^2.4.3",
     "swagger-jsdoc": "^1.9.4",
     "winston": "^3.0.0",
-    "winston-daily-rotate-file": "^3.3.0"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.24.1",
+    "winston-daily-rotate-file": "^3.3.0",
+        "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.6.1",
     "babel-register": "^6.24.1",
     "chai": "^4.0.0",
@@ -74,7 +72,9 @@
     "prettier": "^1.7.4",
     "rimraf": "^2.6.1",
     "supertest": "^3.0.0"
+    
   },
+
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.10.8"
