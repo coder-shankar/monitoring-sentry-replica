@@ -1,5 +1,5 @@
-import path from 'path';
-import swaggerJSDoc from 'swagger-jsdoc';
+import path from "path";
+import swaggerJSDoc from "swagger-jsdoc";
 
 /**
  * Swagger definition.
@@ -10,7 +10,7 @@ const swaggerDefinition = {
     version: process.env.APP_VERSION,
     description: process.env.APP_DESCRIPTION
   },
-  basePath: '/api'
+  basePath: "/api"
 };
 
 /**
@@ -21,10 +21,10 @@ const swaggerOptions = {
   swaggerDefinition: swaggerDefinition,
   // path to the API docs
   apis: [
-    path.join(__dirname, '/../routes.js'),
-    path.join(__dirname, '/../docs/*.js'),
-    path.join(__dirname, '/../docs/*.yml'),
-    path.join(__dirname, '/../docs/*.yaml')
+    path.join(__dirname, "/../routes.js"),
+    path.join(__dirname, "/../docs/*.js"),
+    path.join(__dirname, "/../docs/*.yml"),
+    path.join(__dirname, "/../docs/*.yaml")
   ]
 };
 

@@ -1,6 +1,6 @@
-import logger from '../utils/logger';
-import HttpStatus from 'http-status-codes';
-import buildError from '../utils/buildError';
+import logger from "../utils/logger";
+import HttpStatus from "http-status-codes";
+import buildError from "../utils/buildError";
 
 /**
  * Error response middleware for 404 not found.

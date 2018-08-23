@@ -1,6 +1,6 @@
 import Joi from "joi";
 import validate from "../utils/validate";
-import * as userService from "../services/userService";
+import * as adminService from "../services/adminService";
 
 const SCHEMA = {
   name: Joi.string()
@@ -10,32 +10,32 @@ const SCHEMA = {
 };
 
 /**
- * Validate create/update user request.
+ * Validate create/update admins request.
  *
  * @param  {object}   req
  * @param  {object}   res
  * @param  {function} next
  * @return {Promise}
  */
-function userValidator(req, res, next) {
+function adminValidator(req, res, next) {
   return validate(req.body, SCHEMA)
     .then(() => next())
     .catch(err => next(err));
 }
 
 /**
- * Validate users existence.
+ * Validate admins existence.
  *
  * @param  {object}   req
  * @param  {object}   res
  * @param  {function} next
  * @return {Promise}
  */
-function findUser(req, res, next) {
-  return userService
-    .getUser(req.params.id)
+function findAdmin(req, res, next) {
+  return adminService
+    .getAdmin(req.params.id)
     .then(() => next())
     .catch(err => next(err));
 }
 
-export { findUser, userValidator };
+export { findAdmin, adminValidator };
