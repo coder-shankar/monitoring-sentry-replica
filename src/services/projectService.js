@@ -22,9 +22,11 @@ export async function getRelatedProject(searchQuery, rowsPerPage, page, emailId)
 
   const projects = await new AdminProject()
     .query(function(qb) {
-      qb.where({
-        admin_id: adminId
-      }).select("project_id");
+      qb
+        .where({
+          admin_id: adminId
+        })
+        .select("project_id");
     })
     .fetchAll()
     .then(data => {
@@ -47,7 +49,8 @@ export async function getRelatedProject(searchQuery, rowsPerPage, page, emailId)
 
 export async function createNewProject(project) {
   const projectTable = await new Project({
-    project_name: project.project_name
+    project_name: project.project_name,
+    description: project.description
   }).save();
 
   const projectId = await Project.forge({
@@ -128,4 +131,8 @@ export function getProject(id, userId = null) {
 
   //   return project;
   // });
+}
+
+export function updateProject(projectId, projectName, projectDescription) {
+  return new Project({ id: projectId }).save({ project_name: projectName, description: projectDescription });
 }
